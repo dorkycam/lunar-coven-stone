@@ -53,7 +53,7 @@ void setup()
   while (!Serial)
     delay(1); // wait for serial port to open
 
-  Serial.println("beginning");
+  Serial.println("beginnings");
 
   SPI.begin();
   mfrc522.PCD_Init();
