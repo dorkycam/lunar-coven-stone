@@ -88,6 +88,7 @@ void loop() {
         game.scanCal();
         ledManager.doCalAnimation(scannedCal);
         Serial.println("Succesfully scanned cal");
+        game.resetGame();
         return;
     }
 

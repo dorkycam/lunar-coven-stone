@@ -58,6 +58,21 @@ void LedManager::fadeAllOut(float seconds) {
     } while (now < end);
 }
 
+void LedManager::fadeOneOut(float seconds, int goalNum) {
+    Serial.println("fadeAllOut");
+    this->turnOnLight(goalNum, LED_MAX);
+    unsigned long start = millis();
+    unsigned long end = start + (seconds * 1000);
+    unsigned long total = end - start;
+    unsigned long now = millis();
+    do {
+        float pct = (float)(end - now) / (float)total;
+        int val = (LED_MAX * pct);
+        this->turnOnLight(goalNum, val);
+        now = millis();
+    } while (now < end);
+}
+
 void LedManager::fadeAllIn(float seconds) {
     Serial.println("fadeAllIn");
     this->setAllLightsBrightness(LED_MIN);
@@ -103,11 +118,11 @@ int LedManager::spin(float seconds, int startGoalNum, float spinDelay, int stopG
 
 void LedManager::doCalAnimation(int goalNum) {
     Serial.println("Cal animation start");
-    this->fadeAllOut(3);
-    this->fadeAllIn(2.5);
-    this->fadeAllOut(2);
-    this->fadeAllIn(1.5);
-    this->fadeAllOut(1);
+    // this->fadeAllOut(3);
+    // this->fadeAllIn(2.5);
+    // this->fadeAllOut(2);
+    // this->fadeAllIn(1.5);
+    // this->fadeAllOut(1);
     this->fadeAllIn(0.5);
     this->fadeAllOut(0.5);
     this->fadeAllIn(0.5);
@@ -129,19 +144,20 @@ void LedManager::doCalAnimation(int goalNum) {
     this->fadeAllOut(0.10);
     this->fadeAllIn(0.10);
     this->fadeAllOut(0.10);
-    this->fadeAllIn(0.10);
-    this->fadeAllOut(0.10);
-    this->fadeAllIn(0.10);
-    this->fadeAllOut(0.10);
+    // this->fadeAllIn(0.10);
+    // this->fadeAllOut(0.10);
+    // this->fadeAllIn(0.10);
+    // this->fadeAllOut(0.10);
     this->setAllLightsBrightness(LED_MIN);
     delay(1);
-    int spinNum = this->spin(2, 0, 0.2);
-    spinNum = this->spin(2, spinNum, 0.1);
+    // int spinNum = this->spin(2, 0, 0.2);
+    int spinNum = this->spin(2, spinNum, 0.1);
     spinNum = this->spin(2, spinNum, 0.075);
     spinNum = this->spin(2, spinNum, 0.050);
     spinNum = this->spin(2, spinNum, 0.025);
     spinNum = this->spin(10, spinNum, 0.025, goalNum);
     delay(5000);
+    this->fadeOneOut(2, goalNum);
     this->setAllLightsBrightness(LED_MIN);
     Serial.println("Cal animation end");
 }

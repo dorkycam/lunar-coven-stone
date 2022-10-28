@@ -22,6 +22,7 @@ class LedManager {
     void doTwinkles();
 
     void fadeAllOut(float seconds);
+    void fadeOneOut(float seconds, int goalNum);
     void fadeAllIn(float seconds);
     int spin(float seconds, int startGoalNum, float spinDelay, int stopGoalNum = -1);
     void doCalAnimation(int goalNum);
